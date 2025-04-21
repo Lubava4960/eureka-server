@@ -14,7 +14,7 @@ services:
   userService:
     image: openjdk:11
     ports:
-      - "8080:8080"
+      - "8083:8083"
     volumes:
       - ./userService:/app
     working_dir: /app
@@ -42,3 +42,14 @@ services:
       POSTGRES_PASSWORD: 4795895q
     ports:
       - "5434:5432"
+
+  gateway-service:
+    image: openjdk:11
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./gateway-service:/app
+    working_dir: /app
+    command: [ "java", "-jar", "gateway-service.jar" ]
+    depends_on:
+      - db
